@@ -1,0 +1,11 @@
+#divfields{
+    display: grid;
+    grid-template-columns: repeat(3,120px);
+    grid-template-rows: repeat(3,120px);
+}
+
+.field{
+    color:white;
+    background: #1f1f1f;
+    font-size: 60px;
+}
