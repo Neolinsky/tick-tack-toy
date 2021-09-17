@@ -9,3 +9,63 @@
     background: #1f1f1f;
     font-size: 60px;
 }
+
+.window{
+    background-color: black;
+    width: 360px;
+    position: fixed;
+}
+
+.window >.head{
+    background-color: black;
+    color: white;
+
+    position: relative;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-left: 5px;
+    user-select: none;
+}
+
+
+.window > .head > .close{
+    display: block;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+
+.window > .head > .close::before,
+.window > .head > .close::after{
+content: "";
+position: absolute;
+width: 2px;
+height: 100%;
+background-color: white;
+left: 50%;
+transform: translateX(-50%) rotate(-45deg);
+transition: background-color 200ms;
+border-radius: 20px;
+}
+
+.window > .head > .close::after{
+    transform: translateX(-50%) rotateZ(45deg);
+}
+
+.window > .head > .close:hover{
+    cursor: pointer;
+}
+
+.window > .head > .close:hover::before,
+.window > .head > .close:hover::after{
+   background-color: red;
+}
+
+
+.window >.body {
+    overflow: auto;
+}

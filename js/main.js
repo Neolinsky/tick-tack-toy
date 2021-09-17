@@ -33,17 +33,67 @@ buttons.forEach(element =>{
 if((btn11.textContent == "X" && btn12.textContent == "X" && btn13.textContent == "X") 
 || (btn21.textContent == "X" && btn22.textContent == "X" && btn23.textContent == "X")
 || (btn31.textContent == "X" && btn32.textContent == "X" && btn33.textContent == "X")
+
 || (btn11.textContent == "X" && btn22.textContent == "X" && btn33.textContent == "X")
-|| (btn13.textContent == "X" && btn22.textContent == "X" && btn31.textContent == "X"))
+|| (btn13.textContent == "X" && btn22.textContent == "X" && btn31.textContent == "X")
+
+|| (btn11.textContent == "X" && btn21.textContent == "X" && btn31.textContent == "X")
+|| (btn12.textContent == "X" && btn22.textContent == "X" && btn32.textContent == "X")
+|| (btn13.textContent == "X" && btn23.textContent == "X" && btn33.textContent == "X")
+)
     {
 
     console.log("x - won")
     
 }
-
        }
     }
     });
+}
+
+
+
+let close = document.querySelector(".window .head .close")
+
+if(close)
+{
+    close.onclick = function(e){
+           let window = e.target.closest(".window")
+           if(window){
+               window.remove()
+           }
+    }
+}
+
+let head = document.querySelector(".window .head");
+if(head)
+{
+    let isMoveing = false;
+    let x = 0,  y = 0
+    head.onmousedown = function(e){
+        isMoveing = true;
+        x = e.clientX;
+        y = e.clienty;
+    }
+
+    head.onmouseup = function(e){
+        isMoveing = false;
+    }
+
+    head.onmouseout = function(e){
+        isMoveing = false;
+    }
+
+    head.onmousemove = function(e){
+        if(!isMoveing)return;
+
+        let win = head.parentElement
+        let bound = win.getBoundingClientRect();
+        win.style.top = "" +  (bound.top +(e.clientY - y)) + "px"
+        win.style.left = "" + (bound.left + (e.clientX - x)) + "px"
+        x = e.clientX;
+        y = e.clientY;
+    }
 }
 
 
