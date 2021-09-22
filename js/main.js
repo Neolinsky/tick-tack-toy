@@ -1,61 +1,6 @@
-let buttons = document.querySelectorAll(".field")
-let btn11 = document.querySelector("#btn11");
-let btn12 = document.querySelector("#btn12");
-let btn13 = document.querySelector("#btn13");
-
-let btn21 = document.querySelector("#btn21");
-let btn22 = document.querySelector("#btn22");
-let btn23 = document.querySelector("#btn23");
-
-let btn31 = document.querySelector("#btn31");
-let btn32 = document.querySelector("#btn32");
-let btn33 = document.querySelector("#btn33");
-
-
-let plaer1 = true;
-
-console.log("hellpo")
-if(buttons){
-buttons.forEach(element =>{
-    element.onclick = function(){
-    
-        if(element.textContent == ""){
-            if(plaer1){
-                element.textContent = "X"
-                plaer1 = false;
-            }
-            else{
-             element.textContent = "O"
-             plaer1 = true;          
-        }
-       
-       
-if((btn11.textContent == "X" && btn12.textContent == "X" && btn13.textContent == "X") 
-|| (btn21.textContent == "X" && btn22.textContent == "X" && btn23.textContent == "X")
-|| (btn31.textContent == "X" && btn32.textContent == "X" && btn33.textContent == "X")
-
-|| (btn11.textContent == "X" && btn22.textContent == "X" && btn33.textContent == "X")
-|| (btn13.textContent == "X" && btn22.textContent == "X" && btn31.textContent == "X")
-
-|| (btn11.textContent == "X" && btn21.textContent == "X" && btn31.textContent == "X")
-|| (btn12.textContent == "X" && btn22.textContent == "X" && btn32.textContent == "X")
-|| (btn13.textContent == "X" && btn23.textContent == "X" && btn33.textContent == "X")
-)
-    {
-
-    console.log("x - won")
-    
-}
-       }
-    }
-    });
-}
-
-
-
-let close = document.querySelector(".window .head .close")
-
-if(close)
+let createWindowBtn = document.querySelector("#createWindowBtn");
+/**
+ * if(close)
 {
     close.onclick = function(e){
            let window = e.target.closest(".window")
@@ -94,6 +39,98 @@ if(head)
         x = e.clientX;
         y = e.clientY;
     }
-}
+
+ */
+
+    /**
+     * <div class="window" style="left:0px; top:0px;">
+    <div class="head">
+        <span>Окно</span>  
+        <span class="close"></span>             
+    </div>
+
+    <div class="body">          
+        <div id="divfields"></div>   
+    </div>
+   </div>
+     */
+ 
+    let zIndex = 1;
+
+
+    function createWindow(){
+        var rootWindow = document.createElement("div"),
+        headNew = document.createElement("div"),
+        bodyNew = document.createElement("div"),
+        headNewText = document.createElement("div"),
+        closeNew = document.createElement("div");
+
+
+        rootWindow.append(headNew, bodyNew);
+        headNew.append(headNewText, closeNew);
+
+        headNew.onmousedown = onMouseDown;
+        headNew.onmouseup = onMouseUp;
+         headNew.onmousemove = onMouseMove;
+        headNew.onmouseout = onMouseOut;
+
+   
+
+        headNewText.textContent = "New Window";
+
+        rootWindow.className = "window";
+        headNew.className = "head";
+        bodyNew.className = "body";
+        closeNew.className = "close";
+
+        closeNew.onclick = CloseWindow;
+
+        document.body.append(rootWindow)
+    }
+
+
+    createWindowBtn.onclick = createWindow;
+
+
+
+   function onMouseDown(event){
+       this.dataset.isMove = true;
+       this.dataset.x = "" + event.clientX.datase;
+       this.dataset.y = "" + event.clientX.datase;
+       this.parentElement.style.zIndex = "" + (zIndex++);
+
+   }
+
+   function onMouseUp(event){
+       this.dataset.isMove = false;
+   }
+
+    function onMouseOut(event){
+      this.dataset.isMove = false;
+    }
+
+    function CloseWindow(event){
+        let window = event.target.closest(".window")
+        if(window){
+            window.remove()
+        }
+    }
+
+    function onMouseMove(event){
+        if(this.dataset.isMove != "true")return;
+
+        let win = this.parentElement
+        let bound = win.getBoundingClientRect();
+        win.style.top = "" +  (bound.top +(event.clientY - +this.dataset.y)) + "px"
+        win.style.left = "" + (bound.left + (event.clientX - +this.dataset.x)) + "px"
+        this.dataset.x = event.clientX;
+        this.dataset.y = event.clientY;
+
+    }
+
+
+
+
+
 
 
